@@ -16,7 +16,4 @@
     "url": "https://github.com/jonarnaldo/duck_doc/issues"
   },
   "homepage": "https://github.com/jonarnaldo/duck_doc#readme",
-  "dependencies": {
-    "jsdoc-to-markdown": "^4.0.1"
-  }
 }
