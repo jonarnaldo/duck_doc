@@ -51,7 +51,6 @@ init() {
 
   cd $HOME/build/$USERNAME/$CURRENT_REPO
   git checkout -b documentation
-  sleep 20 # wait a bit to switch to branch
 }
 
 create_documentation () {
@@ -66,8 +65,9 @@ setup_git() {
 }
 
 commit_documentation_files() {
+  git diff
   git add .
-  echo "adding commit with message"
+  echo "adding commit with message 'documentation update: ${SHA}'"
   git commit --message "documentation update: ${SHA}"
   echo "showing git commit log"
   git log
@@ -82,8 +82,10 @@ upload_files() {
 }
 
 init
+sleep 20 # wait a bit to switch to branch
 setup_git
 create_documentation
+sleep 30
 commit_documentation_files
 sleep 10
 upload_files
