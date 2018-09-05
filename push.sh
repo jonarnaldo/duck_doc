@@ -84,15 +84,12 @@ upload_files() {
 
 }
 
-sleep 45
-echo "initiliazing updating documentation"
-init
-sleep 20 # wait a bit to switch to branch
-echo "setting up config for git"
-setup_git
-echo "creating documentation..."
-create_documentation
 sleep 30
+commit_documentation_files
+sleep 10
+echo "uploading files to github..."
+upload_files
+echo "uploaded files successfully!"
 
 exit
 # setup_git
