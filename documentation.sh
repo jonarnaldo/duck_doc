@@ -10,10 +10,19 @@
 # [x] todo - generate/update readme.md when script is rerun
 # [ ] todo - write script to create documentation from js files from both Unity and Core
 # set variables if they don't exist
-BASEURL='https://github.com/jonarnaldo'
-REPO='duck_typing'
-DESTINATIONFOLDER='$HOME/documentation'
-TARGETFILES='$HOME/src/*'
+
+# n.b. home is /home/travis
+# n.b. default directory is /home/travis/build/jonarnaldo/duck_doc
+
+USEREMAIL="jonarnaldo@gmail.com"
+USERNAME="jonarnaldo"
+BASEURL="https://github.com/jonarnaldo"
+
+TARGET_REPO="duck_typing"
+CURRENT_REPO="duck_doc"
+
+TARGET_FILES=$HOME/$TARGET_REPO/src/*
+DESTINATION_FOLDER=$HOME/build/$USERNAME/$CURRENT_REPO/documentation
 
 # writes jsdoc console output to markdown file
 write_markdown_file () {
@@ -21,57 +30,58 @@ write_markdown_file () {
   FILENAME=$(basename $1) # strip directory from filename and save to local var
   DESTNAME=$(sed s/jsx/md/g <<< ${FILENAME}) # replace jsx to md in string
 
-  # write output to file ex. {destination}/foo.md
-  # n.b. will create file if doesn't exist or overwrite existing file
-  jsdoc2md $1 > ${DESTINATIONFOLDER}/${DESTNAME}
+  # create or overwrite output to file ex. {destination}/foo.md
+  echo "writing $DESTNAME to $DESTINATION_FOLDER"
+  jsdoc2md $1 > $DESTINATION_FOLDER/$DESTNAME
 
-  # create appropriate link in readme
+  # append file with appropriate link in readme
   # ex. output: * [SimpleTable.jsx](SimpleTable.md)
-  echo "* [${FILENAME}](${DESTNAME})" >> $DESTINATIONFOLDER/README.md
+  echo "* [${FILENAME}](${DESTNAME})" >> $DESTINATION_FOLDER/README.md
 }
 
 # export functions, set variables if they don't exist, clone repo, add jsdoc package
 init() {
-  echo 'initiliazing updating documentation'
+  echo "initiliazing updating documentation"
   export write_markdown_file
   export SHA=`git rev-parse --verify HEAD` # used for commit message
 
-  echo home $HOME
-  echo current directory $PWD
-
-  # npm install -g jsdoc-to-markdown # adding jsdoc package
-  #
   # # clone repo into temp folder and cd into it
-  # cd ..
-  # mkdir temp
-  # cd temp
-  # echo 'current directory' $PWD
-  # git clone ${BASEURL}/${REPO}.git
-  # cd ${REPO}
+  cd $HOME
+  git clone ${BASEURL}/${TARGET_REPO}.git
+  cd ${TARGET_REPO}
+  echo "moved into directory at ${PWD}"
 }
 
 create_documentation () {
-  cd $DESTINATIONFOLDER
-  find $TARGETFILES -type f -name '*.jsx' ! -name '*.test.jsx' -exec bash -c 'write_markdown_file "$1"' - {} \;
+  find $TARGET_FILES -type f -name '*.jsx' ! -name '*.test.jsx' -exec bash -c 'write_markdown_file "$1"' - {} \;
 }
 
 setup_git() {
-  git config --global user.email "jonarnaldo@gmail.com"
-  git config --global user.name "jonarnaldo"
+  echo "setting up config for git"
+  git config --global user.email $USEREMAIL
+  git config --global user.name $USERNAME
 }
 
 commit_documentation_files() {
   git checkout -b documentation
   git add .
-  git commit --message "Travis build: ${SHA}"
+  echo "adding commit with message"
+  git commit --message "documentation update: ${SHA}"
 }
 
 upload_files() {
-  git remote add origin-pages https://${GH_TOKEN}@github.com/MVSE-outreach/resources.git > /dev/null 2>&1
-  git push --quiet --set-upstream documentation
+  # git remote add origin-documentation https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git > /dev/null 2>&1
+  echo "uploading files to github..."
+  git remote add origin-documentation https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git
+  git push --quiet --set-upstream origin-documentation documentation
+  echo "uploaded files successfully!"
 }
 
 init
+create_documentation
+setup_git
+commit_documentation_files
+upload_files
 
 exit
 # setup_git
