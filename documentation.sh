@@ -54,15 +54,15 @@ init() {
 }
 
 create_documentation () {
-  echo "target files" $TARGET_FILES
-  find $TARGET_FILES -type f -name '*.jsx' ! -name '*.test.jsx' -exec bash -c \
-    'echo "adding markdown files";
-    local FILENAME;
-    FILENAME=$(basename $1);
-    DESTNAME=$(sed s/jsx/md/g <<< ${FILENAME});
-    echo "writing $DESTNAME to $DESTINATION_FOLDER";
-    jsdoc2md $1 > $DESTINATION_FOLDER/$DESTNAME;
-    echo "* [${FILENAME}](${DESTNAME})" >> $DESTINATION_FOLDER/README.md' - {} \;
+  jsdoc2md $HOME/$TARGET_REPO/src/game.js > $DESTINATION_FOLDER/game.md
+  # find $TARGET_FILES -type f -name '*.jsx' ! -name '*.test.jsx' -exec bash -c \
+  #   'echo "adding markdown files";
+  #   local FILENAME;
+  #   FILENAME=$(basename $1);
+  #   DESTNAME=$(sed s/jsx/md/g <<< ${FILENAME});
+  #   echo "writing $DESTNAME to $DESTINATION_FOLDER";
+  #   jsdoc2md $1 > $DESTINATION_FOLDER/$DESTNAME;
+  #   echo "* [${FILENAME}](${DESTNAME})" >> $DESTINATION_FOLDER/README.md' - {} \;
 }
 
 setup_git() {
