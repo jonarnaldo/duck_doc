@@ -1,0 +1,12 @@
+language: node_js
+sudo: false
+node_js:
+  - "8.9.4"
+install:
+  - npm install
+script:
+  - npm run document
+before_script:
+env:
+  global:
+    secure: ESL0dR8CRM9+4sRJJVROIs6Pu6YaacSvfI4JCe8pG8wcP4wzyTC3PmeNoaKHDZIgU9bJJc3KI/2pl+n/1SOJ7oNvL0YgrGI6JsUdtnjHzpRO/oukxmCqIonOg6LlnuWSzqzxLoNKD355HVhpX8FsBchKYG7nVv8OCpzHuXH+R4xmaZ08Az0Dpu7Rdpi8w3G323Abt97HCkgz8aV7/6RJB6Up+AGpBNqnlcxEYJvzvDlnl7hdoFEvl1fkYA6kkXsxWk7wl/Cy7QAUhh9IWk79kN8Cgj6acihv6wT0QoqoMPa2Miw5KCWnBEqjQH2P+05YGsJmlKJDLwP1o58BZvcR1bdWS3NkqsCBLW0c6y4jcyeKb7v7vAoA3q18gViUzTxJEd9D3LIkx/cNfxE746DZy2ht+DpUBLaZbfmCsgnfvu9MSK7i9VsXTiikyVJmiKIVumcyYgdMs1AFL1raEq7poWau3vqSh9laru9fmtzZRczzJxPeQ0TgY14+GBKE3ilHxH45Wnxnv6kIHDZBPG7+fbFRrNmBep7L6zPh+X74B4LxtR7kAWVwzWpvW3JB0HN3LLPJCnoIQ+I8m2gGA15y7vZwHoHCLMvDUliR1BS6hfBkVPRCB0SnPulj/ki2/zyMo8/4Z/o0I3triWu1ThVyS2f1U22/3kgJejHUdVDWUw8=
