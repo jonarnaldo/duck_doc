@@ -50,6 +50,9 @@ init() {
   git clone ${BASEURL}/${TARGET_REPO}.git
   cd ${TARGET_REPO}
   echo "moved into directory at ${PWD}"
+
+  git checkout -b documentation
+  sleep 5 # wait a bit to switch to branch
 }
 
 create_documentation () {
@@ -63,7 +66,6 @@ setup_git() {
 }
 
 commit_documentation_files() {
-  git checkout -b documentation
   git add .
   echo "adding commit with message"
   git commit --message "documentation update: ${SHA}"
@@ -72,15 +74,17 @@ commit_documentation_files() {
 upload_files() {
   # git remote add origin-documentation https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git > /dev/null 2>&1
   echo "uploading files to github..."
-  git remote add origin-documentation https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git
+  git remote add origin-documentation https://${GH_TOKEN}@github.com/$USERNAME/$CURRENT_REPO.git
   git push --quiet --set-upstream origin-documentation documentation
   echo "uploaded files successfully!"
 }
 
 init
-create_documentation
 setup_git
+create_documentation
+sleep 30
 commit_documentation_files
+sleep 10
 upload_files
 
 exit
