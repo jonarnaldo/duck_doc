@@ -78,9 +78,8 @@ commit_documentation_files() {
 }
 
 upload_files() {
-  # git remote add origin-documentation https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git > /dev/null 2>&1
-  git remote add origin-documentation https://${GH_TOKEN}@github.com/$USERNAME/$CURRENT_REPO.git
-  git push --quiet --set-upstream origin-documentation documentation
+  git remote add origin https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git > /dev/null 2>&1
+  git push origin documentation
 
 }
 
