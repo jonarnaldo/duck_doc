@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "document": "sh document.sh",
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jonarnaldo/duck_doc/issues"
   },
-  "homepage": "https://github.com/jonarnaldo/duck_doc#readme"
+  "homepage": "https://github.com/jonarnaldo/duck_doc#readme",
+  "dependencies": {
+    "jsdoc-to-markdown": "^4.0.1"
+  }
 }
