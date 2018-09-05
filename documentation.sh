@@ -15,10 +15,6 @@ REPO='duck_typing'
 DESTINATIONFOLDER='$HOME/documentation'
 TARGETFILES='$HOME/src/*'
 
-# overwrite readme file with updated info
-echo "# Documentation"$'\r'$'\r' > $DESTINATIONFOLDER/README.md
-echo "## Unity Component Table of Contents" >> $DESTINATIONFOLDER/README.md
-
 # writes jsdoc console output to markdown file
 write_markdown_file () {
   local FILENAME
