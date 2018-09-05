@@ -92,6 +92,11 @@ setup_git
 echo "creating documentation..."
 create_documentation
 sleep 30
+commit_documentation_files
+sleep 10
+echo "uploading files to github..."
+upload_files
+echo "uploaded files successfully!"
 
 exit
 # setup_git
