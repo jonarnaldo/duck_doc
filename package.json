@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "document": "sh documentation.sh"
+    "document": "documentation.sh"
   },
   "repository": {
     "type": "git",
