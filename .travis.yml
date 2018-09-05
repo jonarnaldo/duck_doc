@@ -10,8 +10,6 @@ install:
 - npm install
 script:
 - npm run document
-after_success:
-- npm run publish
 env:
   global:
     secure: QWqGnaQp20G03eqveBbzFYmiREPJdZyhAOFbTiqqTA0zygUI1W6KD4Zit/ppp0u7ccYzD3N+pOX7PTz8vRWHZ1wkShb3XJ67noFfrp0+Am2yXwimJoDgJkr4LmOA0B+KbaOy+EBqkDQOpFk58T5JQxGPowgQebOIthrTuiQa8UCT6knLbYV19pXBH8WFU+uSx0TuYkN/Z2qlNuVnlyyinjpyAAcXZL6+yZVvhle6v8GcTeYZVZjSzEZN27zM6t0AwFhqzYqPRabdYvXOq8d0b2zHZYWt+qIObV3snbvxDM83wwtYBH9IKv0DgmToFaA9FJrZ8s+yfjWqgvF6UrMEfHpKPFdoESbxs6xUfLNJHNSH595q1wdpkZOaS5UZzAlCdzlq0Y6nnWNN/pJ5S5FUahDPF6RU/YC9L40pYWZrf+hqGfYIFE2s5Y0wXhMUGfx+wepZ/DI+MFYzgCd/MGpIS+0pJmNMJBi3H+5+GjPhVSH+ZmuRkJD1hD8XBvtOBRcVP1dfoLeIPUwcVp9kEvTkuMGa3Tz8pgyVnoIyGIoFpR/Jcp/O1QgsyQJyi7gbDPa5DJYXxpBj4QzcgglHO+l+7y/u36aepNIV8iBbnl8I/HWObFPPGPskh746tCB+RNkPom8TW0HZy4SjSAaOVLPLqurPurY6V5+vouteunoFC3c=
