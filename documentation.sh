@@ -39,20 +39,19 @@ write_markdown_file () {
   echo "* [${FILENAME}](${DESTNAME})" >> $DESTINATION_FOLDER/README.md
 }
 
+export write_markdown_file
+export SHA=`git rev-parse --verify HEAD` # used for commit message
+
 # export functions, set variables if they don't exist, clone repo, add jsdoc package
 init() {
   echo "initiliazing updating documentation"
-  export write_markdown_file
-  export SHA=`git rev-parse --verify HEAD` # used for commit message
-
   # # clone repo into temp folder and cd into it
   cd $HOME
   git clone ${BASEURL}/${TARGET_REPO}.git
-  cd ${TARGET_REPO}
-  echo "moved into directory at ${PWD}"
 
+  cd $HOME/build/$USERNAME/$CURRENT_REPO
   git checkout -b documentation
-  sleep 5 # wait a bit to switch to branch
+  sleep 20 # wait a bit to switch to branch
 }
 
 create_documentation () {
@@ -85,7 +84,6 @@ upload_files() {
 init
 setup_git
 create_documentation
-sleep 30
 commit_documentation_files
 sleep 10
 upload_files
