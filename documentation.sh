@@ -25,7 +25,8 @@ TARGET_FILES=$HOME/$TARGET_REPO/src/*
 DESTINATION_FOLDER=$HOME/build/$USERNAME/$CURRENT_REPO/documentation
 
 # writes jsdoc console output to markdown file
-write_markdown_file () {
+add_markdown_file () {
+  echo "adding markdown files"
   local FILENAME
   FILENAME=$(basename $1) # strip directory from filename and save to local var
   DESTNAME=$(sed s/jsx/md/g <<< ${FILENAME}) # replace jsx to md in string
@@ -39,12 +40,11 @@ write_markdown_file () {
   echo "* [${FILENAME}](${DESTNAME})" >> $DESTINATION_FOLDER/README.md
 }
 
-export write_markdown_file
+export add_markdown_file
 export SHA=`git rev-parse --verify HEAD` # used for commit message
 
 # export functions, set variables if they don't exist, clone repo, add jsdoc package
 init() {
-  echo "initiliazing updating documentation"
   # # clone repo into temp folder and cd into it
   cd $HOME
   git clone ${BASEURL}/${TARGET_REPO}.git
@@ -54,12 +54,18 @@ init() {
 }
 
 create_documentation () {
-  echo "creating documentation..."
-  find $TARGET_FILES -type f -name '*.jsx' ! -name '*.test.jsx' -exec bash -c 'write_markdown_file "$1"' - {} \;
+  echo "target files" $TARGET_FILES
+  find $TARGET_FILES -type f -name '*.jsx' ! -name '*.test.jsx' -exec bash -c \
+    'echo "adding markdown files";
+    local FILENAME;
+    FILENAME=$(basename $1);
+    DESTNAME=$(sed s/jsx/md/g <<< ${FILENAME});
+    echo "writing $DESTNAME to $DESTINATION_FOLDER";
+    jsdoc2md $1 > $DESTINATION_FOLDER/$DESTNAME;
+    echo "* [${FILENAME}](${DESTNAME})" >> $DESTINATION_FOLDER/README.md' - {} \;
 }
 
 setup_git() {
-  echo "setting up config for git"
   git config --global user.email $USEREMAIL
   git config --global user.name $USERNAME
 }
@@ -75,20 +81,24 @@ commit_documentation_files() {
 
 upload_files() {
   # git remote add origin-documentation https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git > /dev/null 2>&1
-  echo "uploading files to github..."
   git remote add origin-documentation https://${GH_TOKEN}@github.com/$USERNAME/$CURRENT_REPO.git
   git push --quiet --set-upstream origin-documentation documentation
-  echo "uploaded files successfully!"
+
 }
 
+echo "initiliazing updating documentation"
 init
 sleep 20 # wait a bit to switch to branch
+echo "setting up config for git"
 setup_git
+echo "creating documentation..."
 create_documentation
 sleep 30
 commit_documentation_files
 sleep 10
+echo "uploading files to github..."
 upload_files
+echo "uploaded files successfully!"
 
 exit
 # setup_git
