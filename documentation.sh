@@ -71,12 +71,11 @@ setup_git() {
 }
 
 commit_documentation_files() {
-  git diff
   git add .
   echo "adding commit with message 'documentation update: ${SHA}'"
   git commit --message "documentation update: ${SHA}"
-  echo "showing git commit log"
-  git log
+  echo "commit log:"
+  git log -p -1
 }
 
 upload_files() {
@@ -86,6 +85,7 @@ upload_files() {
 
 }
 
+sleep 45
 echo "initiliazing updating documentation"
 init
 sleep 20 # wait a bit to switch to branch
