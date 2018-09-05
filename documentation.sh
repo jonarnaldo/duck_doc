@@ -10,10 +10,10 @@
 # [x] todo - generate/update readme.md when script is rerun
 # [ ] todo - write script to create documentation from js files from both Unity and Core
 # set variables if they don't exist
-${BASEURL:=https://github.com/jonarnaldo}
-${REPO:=duck_typing}
-${DESTINATIONFOLDER:=$HOME/documentation}
-${TARGETFILES:=$HOME/src/*}
+BASEURL='https://github.com/jonarnaldo'
+REPO='duck_typing'
+DESTINATIONFOLDER='$HOME/documentation'
+TARGETFILES='$HOME/src/*'
 
 # overwrite readme file with updated info
 echo "# Documentation"$'\r'$'\r' > $DESTINATIONFOLDER/README.md
