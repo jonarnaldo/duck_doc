@@ -56,6 +56,7 @@ init() {
 }
 
 create_documentation () {
+  echo "creating documentation..."
   find $TARGET_FILES -type f -name '*.jsx' ! -name '*.test.jsx' -exec bash -c 'write_markdown_file "$1"' - {} \;
 }
 
@@ -69,6 +70,8 @@ commit_documentation_files() {
   git add .
   echo "adding commit with message"
   git commit --message "documentation update: ${SHA}"
+  echo "showing git commit log"
+  git log
 }
 
 upload_files() {
