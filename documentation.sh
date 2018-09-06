@@ -74,7 +74,6 @@ commit_documentation_files() {
   git add .
   echo "TRAVIS LOG >> adding commit with message 'documentation update: ${SHA}'"
   git commit --message "documentation update: ${SHA}"
-  echo "TRAVIS LOG >> commit log:"
 }
 
 upload_files() {
