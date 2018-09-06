@@ -26,13 +26,13 @@ DESTINATION_FOLDER=$HOME/build/$USERNAME/$CURRENT_REPO/documentation
 
 # writes jsdoc console output to markdown file
 add_markdown_file () {
-  echo "adding markdown files"
+  echo "TRAVIS LOG >> adding markdown files"
   local FILENAME
   FILENAME=$(basename $1) # strip directory from filename and save to local var
   DESTNAME=$(sed s/jsx/md/g <<< ${FILENAME}) # replace jsx to md in string
 
   # create or overwrite output to file ex. {destination}/foo.md
-  echo "writing $DESTNAME to $DESTINATION_FOLDER"
+  echo "TRAVIS LOG >> writing $DESTNAME to $DESTINATION_FOLDER"
   jsdoc2md $1 > $DESTINATION_FOLDER/$DESTNAME
 
   # append file with appropriate link in readme
@@ -72,31 +72,32 @@ setup_git() {
 
 commit_documentation_files() {
   git add .
-  echo "adding commit with message 'documentation update: ${SHA}'"
+  echo "TRAVIS LOG >> adding commit with message 'documentation update: ${SHA}'"
   git commit --message "documentation update: ${SHA}"
-  echo "commit log:"
+  echo "TRAVIS LOG >> commit log:"
 }
 
 upload_files() {
-  git remote add origin https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git > /dev/null 2>&1
-  git push origin documentation
-
+  # git remote add origin-documentation https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git > /dev/null 2>&1
+  echo "TRAVIS LOG >> $GH_TOKEN"
+  git remote add origin-documentation https://1731f72dfa43afc563f42c69611651cdc4ed00d9@github.com/$USERNAME/$CURRENT_REPO.git
+  git push --quiet --set-upstream origin-documentation documentation
 }
 
 sleep 45
-echo "initiliazing updating documentation"
+echo "TRAVIS LOG >> initiliazing updating documentation"
 init
 sleep 20 # wait a bit to switch to branch
-echo "setting up config for git"
+echo "TRAVIS LOG >> setting up config for git"
 setup_git
-echo "creating documentation..."
+echo "TRAVIS LOG >> creating documentation..."
 create_documentation
 sleep 30
 commit_documentation_files
 sleep 10
-echo "uploading files to github..."
+echo "TRAVIS LOG >> submitting pr to github..."
 upload_files
-echo "uploaded files successfully!"
+echo "TRAVIS LOG >> uploaded files successfully!"
 
 exit
 # setup_git
