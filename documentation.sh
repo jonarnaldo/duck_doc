@@ -80,7 +80,7 @@ commit_documentation_files() {
 upload_files() {
   # git remote add origin-documentation https://${GH_TOKEN}@github.com/jonarnaldo/duck_doc.git > /dev/null 2>&1
   echo "TRAVIS LOG >> $GH_TOKEN"
-  git remote add origin-documentation https://1731f72dfa43afc563f42c69611651cdc4ed00d9@github.com/$USERNAME/$CURRENT_REPO.git
+  git remote add origin-documentation https://${GH_TOKEN}@github.com/$USERNAME/$CURRENT_REPO.git
   git push --quiet --set-upstream origin-documentation documentation
 }
 
